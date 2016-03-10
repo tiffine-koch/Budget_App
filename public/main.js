@@ -16,6 +16,9 @@ app.controller('mainCtrl', function($scope, $http) {
   })
   .then(function (res) {
     $scope.transactions = res.data;
+    var total = res.data;
+    var currentBalance = total.reduce(function())
+    console.log('current', total);
     console.log(res.data);
     console.log($scope.transactions);
   }, function (err) {
@@ -33,8 +36,9 @@ $scope.addTrans = function() {
     url: '/transactions',
     data: {desc: $scope.transaction.desc, date: $scope.transaction.date, amount: $scope.transaction.amount}
   })
-  .then(function(res) {
+  .then(function(data) {
     $scope.transactions.push(newTrans);
+
   }, function(err) {
     console.error(err);
   })
