@@ -28,15 +28,15 @@
           <input type="number" class="form-control" id="amountEntry" placeholder="Enter Amount" step=0.01 required ng-model="transaction.amount">
         </div>
 
-      <button id="debit" ng-click='recordDebit("debit")' class="btn btn-danger red">Debit</button>
-      <button id="credit" ng-click='recordCredit("credit")' class="btn btn-success green" ng>Credit</button>
+      <button ng-class="red" id="debit" ng-click='recordDebit("debit")' class="btn btn-danger red">Withdrawal</button>
+      <button ng-class="green" id="credit" ng-click='recordCredit("credit")' class="btn btn-success green" ng>Deposit</button>
       </div>
       <button id="newEntry" ng-click='addTrans()' class="btn btn-success btn-lg">Add New Entry</button>
      </form>
     </div>
 
   <div id="list" class="container">
-    <h2>2016  Current Balance: {{balance}}</h2>
+    <h2>2016  Current Balance: {{getBalance()}}</h2>
 
       <div class="form-group">
         <label for="filter">Search</label>

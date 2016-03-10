@@ -1,6 +1,7 @@
 'use strict';
 
 console.log('main.js');
+var currentAmount;
 
 var app = angular.module('MyApp', []);
 
@@ -42,9 +43,11 @@ $scope.addTrans = function() {
 
 $scope.deleteTrans = function(transaction) {
   var index = $scope.transactions.indexOf(transaction);
+  var id = transaction.id;
   $http({
     method: 'DELETE',
-    url: "/transactions/" + index,
+    // url: "/transactions/" + index,
+    url: "/transactions/" + id
   })
   .then(function(data) {
     $scope.transactions.splice(index, 1);
@@ -55,13 +58,22 @@ $scope.deleteTrans = function(transaction) {
 
 $scope.recordDebit = function() {
   console.log('debit');
+  currentAmount = -$scope.transaction.amount;
+  console.log('debit', currentAmount);
+
 }
 $scope.recordCredit = function() {
   console.log('credit');
+  currentAmount = $scope.transaction.amount;
+  console.log('credit', currentAmount);
 }
-$scope.getBalance = function() {
-  var balance = 1000.00;
-  var newBalance = balance - transaction.amount;
+// $scope.getBalance = function() {
+$scope.getBalance = function () {
+  var startingBalance = 1000.00;
+  var newBalance = startingBalance - currentAmount;
+  var currentBalance = newBalance - currentAmount;
+  return newBalance;
+  console.log('newB', newBalance);
 }
 
 $scope.editTrans = function(newTrans) {
