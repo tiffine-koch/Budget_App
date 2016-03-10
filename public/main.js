@@ -23,6 +23,8 @@ app.controller('mainCtrl', function($scope, $http) {
 getAllTransactions();
 
 $scope.getBalance = function () {
+  //use a for loop or reduce here
+  //fix deleted amounts
   var newBalance = 0;
   for(var i = 0; i < $scope.transactions.length; i++) {
     var transaction = $scope.transactions[i];
@@ -62,7 +64,6 @@ $scope.addTrans = function() {
   }
 
 $scope.deleteTrans = function(transaction) {
-  // var id = transaction.id;
   var id = this.transaction.id;
   $http({
     method: 'DELETE',
@@ -71,7 +72,6 @@ $scope.deleteTrans = function(transaction) {
   .then(function(data) {
     $scope.transactions.splice(id, 1);
     getBalance();
-    // getAllTransactions();
   }, function(err) {
     console.error(err);
   })

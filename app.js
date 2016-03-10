@@ -1,6 +1,6 @@
 'use strict';
 
-const PORT = 7777;
+const PORT = process.env.PORT || 7777;
 
 var express = require('express');
 var morgan = require('morgan');
