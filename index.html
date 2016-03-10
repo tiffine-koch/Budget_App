@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Budget App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body ng-app='MyApp'>
+
+  <h1>Personal Budget Tracker</h1>
+  <div ng-controller='mainCtrl' class="container">
+
+  <div id="container">
+    <div id="formEntry" class="row">
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="inputTask">Transaction</label>
+          <input type="name" class="form-control" id="transEntry" placeholder="Enter Transaction" value="" required ng-model="transaction.desc">
+        </div>
+        <div class="form-group">
+          <label for="inputDate">Date</label>
+          <input type="date" class="form-control" id="dateEntry" placeholder="Enter Date" value="" ng-model="transaction.date">
+        </div>
+        <div class="form-group">
+          <label class="amount" for="inputAmount">Amount</label>
+          <div class="input-group">$</div>
+          <input type="number" class="form-control" id="amountEntry" placeholder="Enter Amount" value="" step=0.01 required ng-model="transaction.value">
+        </div>
+
+      <button id="debit" ng-click='recordType("debit")' class="btn btn-default">Debit</button>
+      <button id="credit" ng-click='recordType("credit")' class="btn btn-default">Credit</button>
+      </div>
+      <button id="newEntry" ng-click='addTrans()' class="btn btn-success btn-lg">Add New Entry</button>
+     </form>
+    </div>
+
+  <div id="list" class="container">
+    <h2>2016  Current Balance: {{balance}}</h2>
+
+      <div class="form-group">
+        <label for="filter">Search</label>
+        <input ng-model="filterText" type="text" class="form-control">
+       </div>
+
+      <div class="table-reponsive">
+        <table class='table' ng-show='transactions.length'>
+        <thead>
+            <tr>
+            <th>#</th>
+            <th ng-repeat='(key, value) in transactions[0]'>{{key}}</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+         <tbody>
+           <tr ng-repeat='transaction in transactions | filter: filterText track by $index'  ng-class='{lightsteelblue: even}'>
+             <td>{{$index + 1}}</td>
+             <!-- <td ng-repeat='value in transaction'>{{value}}</td> -->
+            <td>{{transaction.desc}}</td>
+            <td>{{transaction.date}}</td>
+            <td>{{transaction.amount}}</td>
+             <td>
+               <button type="button" ng-click="deleteTrans(transaction)" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal"data-toggle="modal" data-target="#myModal">
+                 <span class="glyphicon glyphicon-pencil"></span>
+               </button>
+             </td>
+             <td>
+               <button ng-click="deleteTrans(transaction)" type="button" class="btn btn-primary btn-sm">
+                 <span class="glyphicon glyphicon-trash"></span>
+               </button>
+             </td>
+             </tr>
+
+            <tr>
+              <td>L.A. Fitness</td>
+              <td>Sat,Jan 6, 2016 11:00 PM</td>
+              <td class="testWith">-90.00</td>
+              <td class="balance">$4230.17</td>
+              <td>Bill</td>
+              <td>
+                <button type="button" class="btn btn-default" id="trash">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Paycheck</td>
+              <td>Fri,Jan 5, 2016 12:01 AM</td>
+              <td class="testDep">+2875.00</td>
+              <td>$4320.17</td>
+              <td>Income</td>
+              <td>
+                <button type="button" class="btn btn-default" id="trash">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Transfer to savings</td>
+              <td>Thur,Jan 4, 2016 09:00 PM</td>
+              <td class="testWith">-1000.00</td>
+              <td>$1445.17</td>
+              <td>Savings</td>
+              <td>
+                <button type="button" class="btn btn-default" id="trash">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Dinner</td>
+              <td>2016-01-01</td>
+              <td class="testWith">-174.10</td>
+              <td>$445.17</td>
+              <td>Entertainment</td>
+              <td>
+                <button type="button" class="btn btn-default" id="trash">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="http://momentjs.com/downloads/moment.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="main.js"></script>
+  </body>
+</html>

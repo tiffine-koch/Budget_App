@@ -20,7 +20,7 @@ app.get('/', function(req, res) {
   res.sendFile(indexPath);
 });
 
-app.use('/numbers',require('./routes/numbers'));
+app.use('/transactions',require('./routes/transactions'));
 
 var server = http.createServer(app);
 
