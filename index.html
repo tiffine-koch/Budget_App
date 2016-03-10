@@ -25,11 +25,11 @@
         <div class="form-group">
           <label class="amount" for="inputAmount">Amount</label>
           <div class="input-group">$</div>
-          <input type="number" class="form-control" id="amountEntry" placeholder="Enter Amount" value="" step=0.01 required ng-model="transaction.value">
+          <input type="number" class="form-control" id="amountEntry" placeholder="Enter Amount" step=0.01 required ng-model="transaction.amount">
         </div>
 
-      <button id="debit" ng-click='recordType("debit")' class="btn btn-default">Debit</button>
-      <button id="credit" ng-click='recordType("credit")' class="btn btn-default">Credit</button>
+      <button id="debit" ng-click='recordDebit("debit")' class="btn btn-danger red">Debit</button>
+      <button id="credit" ng-click='recordCredit("credit")' class="btn btn-success green" ng>Credit</button>
       </div>
       <button id="newEntry" ng-click='addTrans()' class="btn btn-success btn-lg">Add New Entry</button>
      </form>
@@ -56,10 +56,9 @@
          <tbody>
            <tr ng-repeat='transaction in transactions | filter: filterText track by $index'  ng-class='{lightsteelblue: even}'>
              <td>{{$index + 1}}</td>
-             <!-- <td ng-repeat='value in transaction'>{{value}}</td> -->
             <td>{{transaction.desc}}</td>
-            <td>{{transaction.date}}</td>
-            <td>{{transaction.amount}}</td>
+            <td>{{transaction.date | date}}</td>
+            <td>{{transaction.amount | currency}}</td>
              <td>
                <button type="button" ng-click="deleteTrans(transaction)" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal"data-toggle="modal" data-target="#myModal">
                  <span class="glyphicon glyphicon-pencil"></span>

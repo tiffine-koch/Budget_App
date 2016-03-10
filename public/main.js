@@ -23,24 +23,61 @@ app.controller('mainCtrl', function($scope, $http) {
 }
 getAllTransactions();
 
-$scope.addTrans =function() {
+$scope.addTrans = function() {
   console.log('click');
-  var newContact = $scope.contact;
-  //if statement to check for empty fields
-    $http({
-      method: 'POST',
-      url: '/transactions',
-      data: {name: $scope.contact.name, email: $scope.contact.email, location: $scope.contact.location,
-        phone: $scope.contact.phone,
-        spirit: $scope.contact.spirit
-      }
-    })
-    .then(function(res) {
-      $scope.contacts.push(newContact);
-    }, function(err) {
-      console.error(err);
-    })
-    $scope.contact = {};
+  var newTrans = $scope.transaction;
+  console.log("addTrans", $scope.transaction);
+  $http({
+    method: 'POST',
+    url: '/transactions',
+    data: {desc: $scope.transaction.desc, date: $scope.transaction.date, amount: $scope.transaction.amount}
+  })
+  .then(function(res) {
+    $scope.transactions.push(newTrans);
+  }, function(err) {
+    console.error(err);
+  })
+  $scope.transaction = {};
+  }
+
+$scope.deleteTrans = function(transaction) {
+  var index = $scope.transactions.indexOf(transaction);
+  $http({
+    method: 'DELETE',
+    url: "/transactions/" + index,
+  })
+  .then(function(data) {
+    $scope.transactions.splice(index, 1);
+  }, function(err) {
+    console.error(err);
+  })
 }
 
+$scope.recordDebit = function() {
+  console.log('debit');
+}
+$scope.recordCredit = function() {
+  console.log('credit');
+}
+$scope.getBalance = function() {
+  var balance = 1000.00;
+  var newBalance = balance - transaction.amount;
+}
+
+$scope.editTrans = function(newTrans) {
+  var index = $scope.transactions.indexOf(newTrans);
+  $scope.transactions.push($scope.transaction);
+  $http({
+    method: 'PUT',
+    url: "/transactions/" + index,
+    data: index
+  })
+  .then(function(data){
+    addTrans();
+    console.log('data', data);
+  }, function(err){
+    console.error(err);
+  })
+  $scope.transaction = {};
+  };
 });
