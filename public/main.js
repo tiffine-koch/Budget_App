@@ -22,6 +22,17 @@ app.controller('mainCtrl', function($scope, $http) {
 }
 getAllTransactions();
 
+$scope.recordDebit = function() {
+  currentAmount = - + $scope.transaction.amount;
+  console.log('debit', currentAmount);
+
+}
+$scope.recordCredit = function() {
+  console.log('credit');
+  currentAmount = +$scope.transaction.amount;
+  console.log('credit', currentAmount);
+}
+
 $scope.getBalance = function () {
   //use a for loop or reduce here
   //fix deleted amounts
@@ -32,16 +43,6 @@ $scope.getBalance = function () {
   }
   console.log('newB', newBalance);
   return newBalance;
-}
-$scope.recordDebit = function() {
-  currentAmount = -$scope.transaction.amount;
-  console.log('debit', currentAmount);
-
-}
-$scope.recordCredit = function() {
-  console.log('credit');
-  currentAmount = +$scope.transaction.amount;
-  console.log('credit', currentAmount);
 }
 
 $scope.addTrans = function() {
